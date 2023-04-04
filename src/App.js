@@ -10,13 +10,19 @@ function App() {
     e.target.style.transform = e.transform
     setPosition({x: `${(e.translate[0] + 750)}`, y: `${(e.translate[1] + 200)}`})
   }
-  const onResize= (e) => {
+  const onResize = (e) => {
     e.target.style.width = `${e.width}px`
     e.target.style.height = `${e.height}px`
     e.target.style.transform = e.drag.transform
-    setSize({width: `${e.width}px`, height: `${e.height}px`})
+    if (e.direction[0] == 1 || e.direction[1] == 1) {
+      setSize({width: `${e.width}px`, height: `${e.height}px`})
+    }
+    if (e.direction[0] == -1 || e.direction[1] == -1) {
+      setSize({width: `${e.width}px`, height: `${e.height}px`})
+      setPosition({x: `${(e.drag.translate[0] + 750)}`, y: `${(e.drag.translate[1] + 200)}`})
+    }
   }
-  const onRotate= (e) => {
+  const onRotate = (e) => {
     console.log(e.target.style.transform)
     e.target.style.transform = e.drag.transform
     setRotation(e.rotate)
