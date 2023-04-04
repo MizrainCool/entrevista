@@ -1,25 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import { Movible } from './moveable/Movible';
 
 function App() {
+  const [position, setPosition] = useState({x: "750", y: "200"})
+  const [size, setSize] = useState({width: "200px", height: "200px"})
+  const [rotation, setRotation] = useState(0)
+  const onDrag = (e) => {
+    e.target.style.transform = e.transform
+    setPosition({x: `${(e.translate[0] + 750)}`, y: `${(e.translate[1] + 200)}`})
+  }
+  const onResize= (e) => {
+    e.target.style.width = `${e.width}px`
+    e.target.style.height = `${e.height}px`
+    e.target.style.transform = e.drag.transform
+    setSize({width: `${e.width}px`, height: `${e.height}px`})
+  }
+  const onRotate= (e) => {
+    console.log(e.target.style.transform)
+    e.target.style.transform = e.drag.transform
+    setRotation(e.rotate)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Movible
+        position={position}
+        size={size}
+        rotation={rotation}
+        onDrag={onDrag}
+        onResize={onResize}
+        onRotate={onRotate}
+      ></Movible>
     </div>
-  );
+  )
 }
 
 export default App;
